@@ -23,8 +23,8 @@ import javax.swing.Timer;
  */
 public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
-    private int[] snakexlenght = new int[750];
-    private int[] snakeylenght = new int[750];
+    private int[] snakeXlenght = new int[750];
+    private int[] snakeYlenght = new int[750];
 
     private boolean left = false;
     private boolean right = false;
@@ -40,10 +40,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private int lengthofsnake = 3;
     private int score = 0;
 
-    private int[] foodxpos = {25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275,
+    private int[] foodXpos = {25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275,
         300, 325, 350, 375, 400, 425, 450, 475, 500, 525, 550, 575, 600, 625,
         650, 675, 700, 725, 750, 775, 800, 825, 850};
-    private int[] foodypos = {75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400, 425, 450, 475, 500, 525, 550, 575, 600, 625};
+    private int[] foodYpos = {75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400, 425, 450, 475, 500, 525, 550, 575, 600, 625};
 
     private ImageIcon foodImage;
 
@@ -73,13 +73,13 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
         if (moves == 0) {
 
-            snakexlenght[2] = 50;
-            snakexlenght[1] = 75;
-            snakexlenght[0] = 100;
+            snakeXlenght[2] = 50;
+            snakeXlenght[1] = 75;
+            snakeXlenght[0] = 100;
 
-            snakeylenght[2] = 100;
-            snakeylenght[1] = 100;
-            snakeylenght[0] = 100;
+            snakeYlenght[2] = 100;
+            snakeYlenght[1] = 100;
+            snakeYlenght[0] = 100;
 
         }
 
@@ -95,15 +95,15 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.drawRect(24, 74, 851, 577);
         // backgroundas
 
-        g.setColor(Color.black);
+        g.setColor(Color.GREEN);
         g.fillRect(25, 75, 850, 575);
 
         //taskai
-        g.setColor(Color.WHITE);
+        g.setColor(Color.BLACK);
         g.setFont(new Font("arial", Font.PLAIN, 14));
         g.drawString("Score: " + score, 780, 30);
 
-        g.setColor(Color.WHITE);
+        g.setColor(Color.BLACK);
         g.setFont(new Font("arial", Font.PLAIN, 14));
         g.drawString("LENGHT: " + lengthofsnake, 780, 50);
 
@@ -115,51 +115,55 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             up = false;
             down = false;
             g.setColor(Color.WHITE);
-            g.setFont(new Font("arial", Font.PLAIN, 50));
-            g.drawString("Pause", 320, 340);
+            g.setFont(new Font("arial", Font.PLAIN, 30));
+            g.drawString("Pause", 340, 350);
 
         }
 
+        leftmouth = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/leftmouth.png");
         rightmouth = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/rightmouth.png");
-        rightmouth.paintIcon(this, g, snakexlenght[0], snakeylenght[0]);
+        upmouth = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/upmouth.png");
+        downmouth = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/downmouth.png");
+        snakeImage = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/snakeimage.png");
+        rightmouth.paintIcon(this, g, snakeXlenght[0], snakeYlenght[0]);
 
         for (int a = 0; a < lengthofsnake; a++) {
             if (a == 0 && right) {
-                rightmouth = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/rightmouth.png");
-                rightmouth.paintIcon(this, g, snakexlenght[a], snakeylenght[a]);
+                
+                rightmouth.paintIcon(this, g, snakeXlenght[a], snakeYlenght[a]);
             }
             if (a == 0 && left) {
-                leftmouth = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/leftmouth.png");
-                leftmouth.paintIcon(this, g, snakexlenght[a], snakeylenght[a]);
+                
+                leftmouth.paintIcon(this, g, snakeXlenght[a], snakeYlenght[a]);
             }
             if (a == 0 && up) {
-                upmouth = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/upmouth.png");
-                upmouth.paintIcon(this, g, snakexlenght[a], snakeylenght[a]);
+                
+                upmouth.paintIcon(this, g, snakeXlenght[a], snakeYlenght[a]);
             }
             if (a == 0 && down) {
-                downmouth = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/downmouth.png");
-                downmouth.paintIcon(this, g, snakexlenght[a], snakeylenght[a]);
+                
+                downmouth.paintIcon(this, g, snakeXlenght[a], snakeYlenght[a]);
             }
 
             if (a != 0) {
-                snakeImage = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/snakeimage.png");
-                snakeImage.paintIcon(this, g, snakexlenght[a], snakeylenght[a]);
+                
+                snakeImage.paintIcon(this, g, snakeXlenght[a], snakeYlenght[a]);
             }
 
         }
 
-        foodImage = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/enemy.png");
-        if (foodxpos[xpos] == snakexlenght[0] && foodypos[ypos] == snakeylenght[0]) {
+        foodImage = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/food.png");
+        if (foodXpos[xpos] == snakeXlenght[0] && foodYpos[ypos] == snakeYlenght[0]) {
             score += lengthofsnake * 2;
             lengthofsnake++;
             xpos = random.nextInt(34);
             ypos = random.nextInt(23);
         }
-        foodImage.paintIcon(this, g, foodxpos[xpos], foodypos[ypos]);
+        foodImage.paintIcon(this, g, foodXpos[xpos], foodYpos[ypos]);
 
         for (int b = 1; b < lengthofsnake; b++) {
 
-            if (snakexlenght[b] == snakexlenght[0] && snakeylenght[b] == snakeylenght[0]) {
+            if (snakeXlenght[b] == snakeXlenght[0] && snakeYlenght[b] == snakeYlenght[0]) {
 
                 right = false;
                 left = false;
@@ -183,23 +187,11 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-
-        if (e.getKeyCode() == KeyEvent.VK_P) {
-            synchronized ("a") {
-                if (pause == true) {
-                    pause = false;
-
-                } else {
-                    pause = true;
-                }
-
-            }
-        }
 
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             synchronized ("a") {
@@ -255,11 +247,12 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 } else {
                     up = false;
                     down = true;
-                    pause = false;
+
                 }
 
                 left = false;
                 right = false;
+                pause = false;
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -284,7 +277,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (e.getKeyCode() == KeyEvent.VK_P) {
+            if (pause) {
+                pause = false;
+
+            } else {
+                pause = true;
+            }
+        }
     }
 
     @Override
@@ -293,18 +293,18 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         if (right) {
             for (int r = lengthofsnake - 1; r >= 0; r--) {
 
-                snakeylenght[r + 1] = snakeylenght[r];
+                snakeYlenght[r + 1] = snakeYlenght[r];
             }
 
             for (int r = lengthofsnake; r >= 0; r--) {
                 if (r == 0) {
 
-                    snakexlenght[r] = snakexlenght[r] + 25;
+                    snakeXlenght[r] = snakeXlenght[r] + 25;
                 } else {
-                    snakexlenght[r] = snakexlenght[r - 1];
+                    snakeXlenght[r] = snakeXlenght[r - 1];
                 }
-                if (snakexlenght[r] > 850) {
-                    snakexlenght[r] = 25;
+                if (snakeXlenght[r] > 850) {
+                    snakeXlenght[r] = 25;
                 }
             }
             repaint();
@@ -313,18 +313,18 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         if (left) {
             for (int r = lengthofsnake - 1; r >= 0; r--) {
 
-                snakeylenght[r + 1] = snakeylenght[r];
+                snakeYlenght[r + 1] = snakeYlenght[r];
             }
 
             for (int r = lengthofsnake; r >= 0; r--) {
                 if (r == 0) {
 
-                    snakexlenght[r] = snakexlenght[r] - 25;
+                    snakeXlenght[r] = snakeXlenght[r] - 25;
                 } else {
-                    snakexlenght[r] = snakexlenght[r - 1];
+                    snakeXlenght[r] = snakeXlenght[r - 1];
                 }
-                if (snakexlenght[r] < 25) {
-                    snakexlenght[r] = 850;
+                if (snakeXlenght[r] < 25) {
+                    snakeXlenght[r] = 850;
                 }
             }
             repaint();
@@ -333,18 +333,18 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         if (up) {
             for (int r = lengthofsnake - 1; r >= 0; r--) {
 
-                snakexlenght[r + 1] = snakexlenght[r];
+                snakeXlenght[r + 1] = snakeXlenght[r];
             }
 
             for (int r = lengthofsnake; r >= 0; r--) {
                 if (r == 0) {
 
-                    snakeylenght[r] = snakeylenght[r] - 25;
+                    snakeYlenght[r] = snakeYlenght[r] - 25;
                 } else {
-                    snakeylenght[r] = snakeylenght[r - 1];
+                    snakeYlenght[r] = snakeYlenght[r - 1];
                 }
-                if (snakeylenght[r] < 75) {
-                    snakeylenght[r] = 625;
+                if (snakeYlenght[r] < 75) {
+                    snakeYlenght[r] = 625;
                 }
             }
             repaint();
@@ -352,18 +352,18 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         if (down) {
             for (int r = lengthofsnake - 1; r >= 0; r--) {
 
-                snakexlenght[r + 1] = snakexlenght[r];
+                snakeXlenght[r + 1] = snakeXlenght[r];
             }
 
             for (int r = lengthofsnake; r >= 0; r--) {
                 if (r == 0) {
 
-                    snakeylenght[r] = snakeylenght[r] + 25;
+                    snakeYlenght[r] = snakeYlenght[r] + 25;
                 } else {
-                    snakeylenght[r] = snakeylenght[r - 1];
+                    snakeYlenght[r] = snakeYlenght[r - 1];
                 }
-                if (snakeylenght[r] > 625) {
-                    snakeylenght[r] = 75;
+                if (snakeYlenght[r] > 625) {
+                    snakeYlenght[r] = 75;
                 }
             }
             repaint();
