@@ -18,7 +18,7 @@ public class Main {
         Gameplay gameplay = new Gameplay();
         
         obj.setBounds(10, 10, 905, 700);
-        obj.setBackground(Color.ORANGE);
+        obj.setBackground(Color.BLACK);
         obj.setResizable(false);
         obj.setVisible(true);
         obj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

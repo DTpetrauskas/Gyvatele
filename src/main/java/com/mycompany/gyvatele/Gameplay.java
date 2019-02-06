@@ -31,6 +31,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private boolean up = false;
     private boolean down = false;
     private boolean pause = false;
+    
+    //pause booleanai
+    private boolean pasueLeft = false;
+    private boolean pauseRight = false;
+    private boolean pauseUp = false;
+    private boolean pauseDown = false;
+    
+    
 
     private ImageIcon rightmouth;
     private ImageIcon upmouth;
@@ -84,7 +92,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         }
 
 //nupiesti siena
-        g.setColor(Color.WHITE);
+        g.setColor(Color.BLACK);
         g.drawRect(24, 10, 852, 55);
         //nupiestas paveiksliukas title
         titleImage = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/snaketitle.jpg");
@@ -95,7 +103,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.drawRect(24, 74, 851, 577);
         // backgroundas
 
-        g.setColor(Color.GREEN);
+        g.setColor(Color.BLACK);
         g.fillRect(25, 75, 850, 575);
 
         //taskai
@@ -279,10 +287,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_P) {
             if (pause) {
-                pause = false;
+                timer.start();
 
             } else {
-                pause = true;
+                timer.stop();
             }
         }
     }
