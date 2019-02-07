@@ -31,14 +31,11 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private boolean up = false;
     private boolean down = false;
     private boolean pause = false;
-    
-    //pause booleanai
-    private boolean pasueLeft = false;
+    //pause 
+    private boolean pauseLeft = false;
     private boolean pauseRight = false;
     private boolean pauseUp = false;
     private boolean pauseDown = false;
-    
-    
 
     private ImageIcon rightmouth;
     private ImageIcon upmouth;
@@ -88,6 +85,12 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             snakeYlenght[2] = 100;
             snakeYlenght[1] = 100;
             snakeYlenght[0] = 100;
+            
+            pauseRight = true;
+            
+            rightmouth = new ImageIcon("src/main/java/resources/Pictures/rightmouth.png");
+            rightmouth.paintIcon(this, g, snakeXlenght[0], snakeYlenght[0]);
+            repaint();
 
         }
 
@@ -95,7 +98,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.setColor(Color.BLACK);
         g.drawRect(24, 10, 852, 55);
         //nupiestas paveiksliukas title
-        titleImage = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/snaketitle.jpg");
+        titleImage = new ImageIcon("src/main/java/resources/Pictures/snaketitle.jpg");
         titleImage.paintIcon(this, g, 25, 11);
 
         //gameplay paveiksliukas
@@ -116,7 +119,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.drawString("LENGHT: " + lengthofsnake, 780, 50);
 
         //pause
-        if (pause == true) {
+        if (pause) {
 
             right = false;
             left = false;
@@ -125,42 +128,74 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             g.setColor(Color.WHITE);
             g.setFont(new Font("arial", Font.PLAIN, 30));
             g.drawString("Pause", 340, 350);
+            repaint();
 
         }
+        
+        if (pause == false && (moves != 0)) {
+            right = pauseRight;
+                left = pauseLeft;
+                up = pauseUp;
+                down = pauseDown;
 
-        leftmouth = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/leftmouth.png");
-        rightmouth = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/rightmouth.png");
-        upmouth = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/upmouth.png");
-        downmouth = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/downmouth.png");
-        snakeImage = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/snakeimage.png");
+        }
+        if (pauseRight) {
         rightmouth.paintIcon(this, g, snakeXlenght[0], snakeYlenght[0]);
+            repaint();
+        }
+        if (pauseLeft) {
+        
+        leftmouth.paintIcon(this, g, snakeXlenght[0], snakeYlenght[0]);
+            repaint();
+        }
+        if (pauseUp) {
+        
+        upmouth.paintIcon(this, g, snakeXlenght[0], snakeYlenght[0]);
+            repaint();
+        }
+        if (pauseDown) {
+        
+        downmouth.paintIcon(this, g, snakeXlenght[0], snakeYlenght[0]);
+            repaint();
+        }
+        
+
+        leftmouth = new ImageIcon("src/main/java/resources/Pictures/leftmouth.png");
+        rightmouth = new ImageIcon("src/main/java/resources/Pictures/rightmouth.png");
+        upmouth = new ImageIcon("src/main/java/resources/Pictures/upmouth.png");
+        downmouth = new ImageIcon("src/main/java/resources/Pictures/downmouth.png");
+        snakeImage = new ImageIcon("src/main/java/resources/Pictures/snakeimage.png");
+        
+        
+        
+        
 
         for (int a = 0; a < lengthofsnake; a++) {
             if (a == 0 && right) {
-                
+
                 rightmouth.paintIcon(this, g, snakeXlenght[a], snakeYlenght[a]);
             }
             if (a == 0 && left) {
-                
+
                 leftmouth.paintIcon(this, g, snakeXlenght[a], snakeYlenght[a]);
             }
             if (a == 0 && up) {
-                
+
                 upmouth.paintIcon(this, g, snakeXlenght[a], snakeYlenght[a]);
             }
             if (a == 0 && down) {
-                
+
                 downmouth.paintIcon(this, g, snakeXlenght[a], snakeYlenght[a]);
             }
 
             if (a != 0) {
-                
+
                 snakeImage.paintIcon(this, g, snakeXlenght[a], snakeYlenght[a]);
             }
 
         }
 
-        foodImage = new ImageIcon("src/main/java/com/mycompany/gyvatele/Pictures/food.png");
+        foodImage = new ImageIcon("src/main/java/resources/Pictures/food.png");
         if (foodXpos[xpos] == snakeXlenght[0] && foodYpos[ypos] == snakeYlenght[0]) {
             score += lengthofsnake * 2;
             lengthofsnake++;
@@ -184,7 +219,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 g.drawString("Game Over", 300, 300);
 
                 g.setFont(new Font("arial", Font.BOLD, 20));
-                g.drawString("(Press the SPACE to restart)", 300, 340);
+                g.drawString("(Press SPACE to restart)", 300, 340);
 
             }
         }
@@ -215,69 +250,93 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             synchronized ("a") {
                 moves++;
                 right = true;
+                pauseRight = true;
 
                 if (!left) {
                     right = true;
+                    pauseRight = true;
+
                 } else {
                     right = false;
+                    pauseRight = false;
                     left = true;
+                    pauseLeft = true;
                 }
 
                 up = false;
+                pauseUp = false;
                 down = false;
-                pause = false;
+                pauseDown = false;
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             synchronized ("a") {
                 moves++;
                 left = true;
+                pauseLeft = true;
 
                 if (!right) {
                     left = true;
+                    pauseLeft = true;
                 } else {
                     left = false;
+                    pauseLeft = false;
                     right = true;
+                    pauseRight = true;
                 }
 
                 up = false;
+                pauseUp = false;
                 down = false;
-                pause = false;
+                pauseDown = false;
+
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_UP) {
             synchronized ("a") {
                 moves++;
                 up = true;
+                pauseUp = true;
 
                 if (!down) {
                     up = true;
+                    pauseUp = true;
                 } else {
                     up = false;
+                    pauseUp = false;
+
                     down = true;
+                    pauseDown = true;
 
                 }
 
                 left = false;
+                pauseLeft = false;
                 right = false;
-                pause = false;
+                pauseRight = false;
+
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             synchronized ("a") {
                 moves++;
                 down = true;
+                pauseDown = true;
 
                 if (!up) {
                     down = true;
+                    pauseDown = true;
                 } else {
                     down = false;
+                    pauseDown = false;
                     up = true;
+                    pauseUp = true;
                 }
 
                 left = false;
+                pauseLeft = false;
                 right = false;
-                pause = false;
+                pauseRight = false;
             }
         }
 
@@ -286,11 +345,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_P) {
-            if (pause) {
-                timer.start();
+
+            if (!pause) {
+                pause = true;
 
             } else {
-                timer.stop();
+
+                pause = false;
+
             }
         }
     }
