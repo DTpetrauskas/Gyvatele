@@ -21,7 +21,7 @@ import javax.swing.Timer;
  *
  * @author TAURAS
  */
-public class Gameplay extends JPanel implements KeyListener, ActionListener {
+public abstract class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     private int[] snakeXlenght = new int[750];
     private int[] snakeYlenght = new int[750];
@@ -57,22 +57,25 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private int xpos = random.nextInt(34);
     private int ypos = random.nextInt(23);
 
-    private Timer timer;
-    private int delay = 100;
+    
     private ImageIcon snakeImage;
 
     private int moves = 0;
 
     private ImageIcon titleImage;
+    
+    
+     Timer timer;
+     int delay = 100;
 
-    public Gameplay() {
-        addKeyListener(this);
-        setFocusable(true);
-        setFocusTraversalKeysEnabled(false);
-        timer = new Timer(delay, this);
-        timer.start();
-
-    }
+//    public Gameplay() {
+//        addKeyListener(this);
+//        setFocusable(true);
+//        setFocusTraversalKeysEnabled(false);
+//        timer = new Timer(delay, this);
+//        timer.start();
+//
+//    }
 
     public void paint(Graphics g) {
 
